@@ -91,12 +91,30 @@ pipeline {
 
             }
         }*/
-        stage('Runing script of Back1') {
-            steps {
-                echo '---------------STARTING SCRIPT BACK1-------------------'
-                sh "ssh ubuntu@44.201.78.229 'cd ImagesToSend && bash back1-script.sh'"
+        
+        stage('Runing 3 scripts to deploy and run Docker Images'){
+            parallel{
+                stage('Runing script of Back1') {
+                    steps {
+                        echo '---------------STARTING SCRIPT BACK1-------------------'
+                        sh "ssh ubuntu@44.201.78.229 'cd ImagesToSend && bash back1-script.sh'"
+                    }
+                }
+
+                stage('Runing script of Back2') {
+                    steps {
+                        echo '---------------STARTING SCRIPT BACK1-------------------'
+                        sh "ssh ubuntu@44.201.78.229 'cd ImagesToSend && bash back2-script.sh'"
+                    }
+                }
+
+                stage('Runing script of Back3') {
+                    steps {
+                        echo '---------------STARTING SCRIPT BACK1-------------------'
+                        sh "ssh ubuntu@44.201.78.229 'cd ImagesToSend && bash back3-script.sh'"
+                    }
+                }
             }
-        }
 
     }
 
