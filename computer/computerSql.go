@@ -13,6 +13,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// doing a comment from demo 2
 func CreateConnection() (*sql.DB, error) {
 	connectionString := "root:sskeyBas1212.@tcp(34.205.225.118:3306)/my_computers"
 	db, err := sql.Open("mysql", connectionString)
