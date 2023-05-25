@@ -116,8 +116,9 @@ pipeline {
                 }
             }
 
+        }
     }
-
+    
     post{
         always{
             echo '-------------SENDING MESSAGE TO DISCORD CHANNEL ANDRES'                                                                                                                                             
