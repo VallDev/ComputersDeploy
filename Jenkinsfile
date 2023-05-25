@@ -15,7 +15,7 @@ pipeline {
                     steps {
                         echo '---------------STARTING PIPELINE---------------------'
                         echo '---------------FETCHING CODE FROM DEV BRANCH---------'
-                        git branch: 'dev', url: 'https://github.com/VallDev/Computers.git'
+                        git branch: 'main', url: 'https://github.com/VallDev/ComputersDeploy.git'
                     }
                 }
 
@@ -50,15 +50,17 @@ pipeline {
             }
         }
 
-        stage('Deploy in VM') {
+        stage('Deploy in Configuration') {
             steps {
                 echo '---------------DEPLOYING APP-------------------------'
-                sh 'scp -v -o StrictHostKeyChecking=no computers-go.tar andres@192.168.0.10:/home/andres/ImagesToRun'
+                sh 'scp -v -o StrictHostKeyChecking=no computers-go.tar ubuntu@144.201.78.229:/home/ubuntu/ImagesToSend'
+                echo '-------------SAVING NUMBER OF CURRENT BUILD----------'
+                sh  "ssh ubuntu@144.201.78.229 'cd ImagesToSend && echo ${BUILD_NUMBER} > current-build-number' "
             }
         }
 
 
-        stage('Rebuilding Image, stopping and deleting previous image'){
+        /*stage('Rebuilding Image, stopping and deleting previous image'){
             parallel{
                 stage('Stopping and Deleting previous Image') {
                     steps {
@@ -78,9 +80,9 @@ pipeline {
                     }       
                 }
             }
-        }
+        }*/
 
-        stage('Runing Docker Image and Saving Tag') {
+        /*stage('Runing Docker Image and Saving Tag') {
             steps {
                 echo '---------------RUNING DOCKER IMAGE-------------------'
                 sh "ssh andres@192.168.0.10 'cd ImagesToRun && docker run -d -p 8080:8080 -t computers-go:${BUILD_NUMBER}'"
@@ -88,7 +90,14 @@ pipeline {
                 sh  "ssh andres@192.168.0.10 'cd ImagesToRun && echo ${BUILD_NUMBER} > build-number' " 
 
             }
+        }*/
+        stage('Runing script of Back1') {
+            steps {
+                echo '---------------STARTING SCRIPT BACK1-------------------'
+                sh "ssh ubuntu@144.201.78.229 'cd ImagesToSend && bash back1-script.sh'"
+            }
         }
+
     }
 
     post{
