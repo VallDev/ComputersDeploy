@@ -53,9 +53,9 @@ pipeline {
         stage('Deploy in Configuration') {
             steps {
                 echo '---------------DEPLOYING APP-------------------------'
-                sh 'scp -v -o StrictHostKeyChecking=no computers-go.tar ubuntu@144.201.78.229:/home/ubuntu/ImagesToSend'
+                sh 'scp -v -o StrictHostKeyChecking=no computers-go.tar ubuntu@44.201.78.229:/home/ubuntu/ImagesToSend'
                 echo '-------------SAVING NUMBER OF CURRENT BUILD----------'
-                sh  "ssh ubuntu@144.201.78.229 'cd ImagesToSend && echo ${BUILD_NUMBER} > current-build-number' "
+                sh  "ssh ubuntu@44.201.78.229 'cd ImagesToSend && echo ${BUILD_NUMBER} > current-build-number' "
             }
         }
 
@@ -94,7 +94,7 @@ pipeline {
         stage('Runing script of Back1') {
             steps {
                 echo '---------------STARTING SCRIPT BACK1-------------------'
-                sh "ssh ubuntu@144.201.78.229 'cd ImagesToSend && bash back1-script.sh'"
+                sh "ssh ubuntu@44.201.78.229 'cd ImagesToSend && bash back1-script.sh'"
             }
         }
 
