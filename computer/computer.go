@@ -1,5 +1,6 @@
 package computer
 
+//A comment
 import (
 	"strings"
 )
